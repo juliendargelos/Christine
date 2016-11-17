@@ -1,0 +1,15 @@
+@import partials/main
+
+form
+	+max(normal)
+		+grid-wrap
+			.col
+				&:first-of-type, &:last-of-type
+					padding: 0
+				&:first-of-type .field:last-of-type
+					+form-field-border
+					&[data-focus]
+						+form-field-border(lighten($brand, 20))
+
+	+max(small)
+		+form-field-wrap

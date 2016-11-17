@@ -1,0 +1,22 @@
+=placeholder
+	+pseudo-prefix(input-placeholder)
+		@content
+	+pseudo-prefix(placeholder)
+		@content
+
+=form-field-border($color: lighten($grey, 12))
+	border-bottom: 2px solid $color
+
+=form-field-background($color: lighten($grey, 17))
+	background: $color
+
+=form-field-focus
+	.field[data-focus]
+		@content
+
+=form-field-wrap($padding: 15px)
+	.field
+		flex-direction: column
+		label, input, textarea, & > div
+			padding-right: $padding
+			padding-left: $padding

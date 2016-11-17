@@ -1,0 +1,47 @@
+fr:
+  user_signup: Inscription
+  user_update_informations: Modifier vos informations
+  user_update_informations_succeed: Les informations ont bien été modifiées
+  user_unsubscribing_succeed: Vous avez bien été désinscrit
+
+  my_informations: Mes informations
+
+  activerecord:
+    models:
+      user:
+        one: Utilisateur
+        others: Utilisateurs
+    attributes:
+      user:
+        email: Adresse mail
+        password: Mot de passe
+        password_confirmation: Confirmation
+        firstname: Prénom
+        lastname: Nom de famille
+        birthdate: Date de naissance
+
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: Veuillez indiquer votre adresse mail
+              email: Adresse mail invalide
+              uniqueness: Cette adresse mail est déjà utilisée
+            password:
+              blank: Veuillez indiquer un mot de passe
+              too_short:
+                one: Veuillez indiquer un mot de passe d'au moins un caractère
+                other: Veuillez indiquer un mot de passe d'au moins %{count} caractères
+            password_confirmation:
+              confirmation: La confirmation ne correspond pas
+            firstname:
+              blank: Veuillez indiquer votre prénom
+            lastname:
+              blank: Veuillez indiquer votre nom de famille
+            birthdate:
+              blank: Veuillez indiquer votre date de naissance
+  helpers:
+    submit:
+      user:
+        update: "Enregistrer vos informations"

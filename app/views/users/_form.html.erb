@@ -1,0 +1,43 @@
+<%= form_for_user @user do |f| %>
+    <div class="row">
+        <div class="col">
+            <div class="field">
+                <%= f.label :email %>
+                <%= f.text_field :email %>
+                <%= f.error_tag :email %>
+            </div>
+            <div class="field">
+                <%= f.label :password %>
+                <%= f.password_field :password, placeholder: 'Laisser vide pour ne pas changer' %>
+                <%= f.error_tag :password %>
+            </div>
+            <div class="field">
+                <%= f.label :password_confirmation %>
+                <%= f.password_field :password_confirmation, placeholder: 'Laisser vide pour ne pas changer' %>
+                <%= f.error_tag :password_confirmation %>
+            </div>
+        </div>
+        <div class="col">
+            <div class="field">
+                <%= f.label :firstname %>
+                <%= f.text_field :firstname %>
+                <%= f.error_tag :firstname %>
+            </div>
+            <div class="field">
+                <%= f.label :lastname %>
+                <%= f.text_field :lastname %>
+                <%= f.error_tag :lastname %>
+            </div>
+            <div class="field">
+                <%= f.label :birthdate %>
+                <div>
+                    <%= f.date_select :birthdate, @birthdate_boundaries %>
+                </div>
+                <%= f.error_tag :birthdate %>
+            </div>
+        </div>
+    </div>
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>

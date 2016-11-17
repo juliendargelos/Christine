@@ -1,0 +1,7 @@
+fr:
+  login: Connexion
+  logout: Déconnexion
+  welcome: Bienvenue %{firstname}
+  please_fill_email_and_password: Veuillez indiquer votre adresse mail et votre mot de passe
+  login_failed: Identifiants incorrects
+  logout_succeed: Vous avez été déconnecté

@@ -1,0 +1,10 @@
+.wrapper
+	width: 100%
+	margin: 0 auto
+	padding: 0 $wrapper-padding
+	box-sizing: border-box
+	position: relative
+	@each $name, $size in $wrapper-sizes
+		&.#{$name}
+			max-width: $size + $wrapper-padding
+	+default($wrapper-default)

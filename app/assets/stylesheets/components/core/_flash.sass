@@ -1,0 +1,16 @@
+.flash
+	background: darken($brand, 10)
+	padding: 12px 0
+	z-index: -1000
+	position: absolute
+	cursor: default
+	display: block
+	color: transparentize($white, 0.4)
+	font-size: 12px
+	text-align: center
+	&[data-visible]
+		z-index: 2
+		position: relative
+		transition: 0.2s
+	&.error
+		background: darken($red, 20)

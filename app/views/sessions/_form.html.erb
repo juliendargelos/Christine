@@ -1,0 +1,21 @@
+<% wrapper = false unless defined? wrapper %>
+
+<%= form_for @user, url: create_session_path do |f| %>
+	<% if wrapper %>
+		<div class="wrapper <%= wrapper %>">
+	<% end %>
+		<div class="field">
+			<%= f.label :email %>
+			<%= f.text_field :email %>
+		</div>
+		<div class="field">
+			<%= f.label :password %>
+			<%= f.password_field :password %>
+		</div>
+	<% if wrapper %>
+		</div>
+	<% end %>
+	<div class="actions">
+		<%= f.submit t(:login) %>
+	</div>
+<% end %>

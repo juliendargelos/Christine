@@ -1,0 +1,23 @@
+<header>
+	<div class="wrapper">
+		<h2>
+			<%= nav_item :market, root_path, logo: true %>
+		</h2>
+		<nav>
+			<% if current_user %>
+				<%= nav_item :my_informations, edit_user_path, icon: :informations, class: 'editUser', selected: {controller: :users, actions: [:edit, :update]} %>
+				<%= nav_item :basket, nil, icon: :basket, class: 'basket' do %>
+
+				<% end %>
+				<%= nav_item :logout, destroy_session_path, icon: :logout, class: 'destroySession' %>
+			<% else %>
+				<%= nav_item :login, new_session_path, icon: :login, class: 'newSession', selected: {controller: :sessions, actions: [:new, :create]}, block_if: controller_name != 'sessions' || (action_name != 'new' && action_name != 'create') do %>
+					<%= render 'sessions/form', wrapper: :small %>
+				<% end %>
+			<% end %>
+		</nav>
+		<a class="toggle-nav">
+			<span>Menu</span>
+		</a>
+	</div>
+</header>

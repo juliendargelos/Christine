@@ -1,0 +1,178 @@
+body
+	padding-top: $header-height
+
+header
+	background: $brand
+	width: 100%
+	top: 0
+	left: 0
+	z-index: 1000
+	position: fixed
+	> .wrapper
+		display: flex
+		justify-content: space-between
+		position: static
+		align-items: center
+	a
+		height: $header-height
+		line-height: $header-height
+	h2
+		a
+			display: flex
+			align-items: center
+			font-size: 0
+			color: transparent
+			.logo
+				+logo(small, transparentize($white, 0.4))
+					transition: 0.2s
+			&:hover .logo
+				+logo-color($white)
+	nav
+		a
+			margin-left: 15px
+			display: inline-block
+			font-size: 10px
+			font-weight: bold
+			color: transparentize($white, 0.4)
+			letter-spacing: 2px
+			text-transform: uppercase
+			text-decoration: none
+			transition: 0.2s
+			&::before
+				content: ''
+				background: transparentize($white, 0.3)
+				width: 100%
+				height: 3px
+				top: -3px
+				margin-bottom: -3px
+				position: relative
+				display: block
+				transition: 0.15s
+			svg
+				width: 18px
+				height: 18px
+				margin-right: 3px
+				vertical-align: middle
+				g
+					fill: transparentize($white, 0.3)
+					transition: 0.2s
+			+ div
+				background: lighten($grey, 16)
+				width: 100%
+				left: 0
+				cursor: default
+				display: none
+				z-index: 10
+				position: absolute
+				form
+					.wrapper
+						padding: 0
+					+max(small)
+						.field
+							+form-field-background(lighten($grey, 12))
+						+form-field-wrap($wrapper-padding)
+			&[data-open] + div
+				display: block
+			&:hover, &.selected, &[data-open]
+				color: $white
+				&::before
+					top: 0
+				svg g
+					fill: $white
+	.toggle-nav
+		width: 35px
+		height: 25px
+		cursor: pointer
+		display: none
+		font-size: 0
+		color: transparent
+		&::before, &::after
+			content: ''
+		&::before, &::after, span
+			background: transparentize($white, 0.4)
+			height: 1px
+			width: 100%
+			display: block
+		span
+			margin: 11px 0
+			transition: 0.2s
+	nav[data-open]
+		+ .toggle-nav
+			&::before
+				animation: toggle-nav-in-before 0.3s 1 forwards
+			&::after
+				animation: toggle-nav-in-after 0.3s 1 forwards
+	nav[data-close]
+		+ .toggle-nav
+			&::before
+				animation: toggle-nav-out-before 0.3s 1 forwards
+			&::after
+				animation: toggle-nav-out-after 0.3s 1 forwards
+	nav[data-open] + .toggle-nav span
+		transform: scaleX(0)
+	nav[data-close] + .toggle-nav span
+		transition-delay: 0.15s
+	+max(normal)
+		nav
+			background: lighten($grey, 16)
+			width: 100%
+			height: 100%
+			border-top: $header-height solid $grey
+			top: 0
+			left: 100%
+			z-index: -1
+			position: fixed
+			transition: 0.3s
+			a
+				margin: 0
+				padding: 0 30px
+				display: block
+				color: $grey
+				&::before
+					display: none
+				svg g
+					fill: $grey
+				&:hover, &:active, &[data-open], &.selected
+					background: lighten($grey, 12)
+					color: darken($grey, 15)
+					svg g
+						fill: darken($grey, 15)
+				&:active
+					&, svg g
+						transition: 0
+			&[data-open]
+				left: 0
+		.toggle-nav
+			display: block
+
+@keyframes toggle-nav-in-before
+	0%
+		transform: translateY(0)
+	50%
+		transform: translateY(12px)
+	100%
+		transform: translateX(11.4px) rotate(45deg) translateY(17.4px)
+
+@keyframes toggle-nav-in-after
+	0%
+		transform: translateY(0)
+	50%
+		transform: translateY(-12px)
+	100%
+		transform: translateX(12.4px) rotate(-45deg) translateY(-17.6px)
+
+@keyframes toggle-nav-out-before
+	0%
+		transform: translateX(11.4px) rotate(45deg) translateY(17.4px)
+	50%
+		transform: translateY(12px)
+	100%
+		transform: translateY(0)
+
+@keyframes toggle-nav-out-after
+	0%
+		transform: translateX(12.4px) rotate(-45deg) translateY(-17.6px)
+	50%
+		transform: translateY(-12px)
+	100%
+		transform: translateY(0)

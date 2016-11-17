@@ -1,0 +1,82 @@
+form
+	input, label
+		box-sizing: border-box
+		display: block
+	input, textarea, select
+		background: transparent
+		height: 50px
+		margin: 0
+		border: none
+		border-radius: 0
+		outline: none
+		+prefix(appearance, none)
+		font-family: $sans-serif
+		+placeholder
+			padding-top: 2px
+			font-size: 10px
+			font-weight: bold
+			text-transform: uppercase
+			letter-spacing: 2px
+			color: lighten($grey, 5)
+	.field
+		display: flex
+		flex-wrap: wrap
+		+form-field-border
+		label
+			padding: 20px 7px 0 15px
+			color: darken($grey, 30)
+		input, textarea, select
+			padding: 0
+			flex-grow: 10
+			font-size: 13px
+			color: darken($grey, 20)
+		input, textarea
+			padding-right: 15px
+		select
+			background: asset-url('icons/select.svg') no-repeat calc(100% - 6px) center / 16px 16px
+			height: 30px
+			padding: 0 22px 0 8px
+			margin: 10px 5px 10px 0
+			border: 2px solid lighten($grey, 5)
+			border-radius: 30px
+			flex-grow: 0
+			line-height: 20px
+			&:focus
+				border-color: lighten($brand, 20)
+		&:last-of-type
+			border-bottom-color: transparent
+		.error
+			width: 100%
+			height: 10px
+			margin-top: -12px
+			flex-shrink: 0
+			display: block
+			color: $red
+			font-size: 10px
+			text-align: right
+		&[data-focus]
+			+form-field-background
+			+form-field-border(lighten($brand, 20))
+	label, input[type="submit"]
+		font-size: 10px
+		font-weight: bold
+		text-transform: uppercase
+		letter-spacing: 2px
+	input[type="submit"]
+		background: $grey
+		width: 100%
+		padding: 0 15px
+		cursor: pointer
+		color: $white
+		transition: 0.2s
+		&:hover
+			background: darken($grey, 10)
+		&:active, &:focus
+			background: $brand
+	.row
+		.col
+			width: 50%
+			&:first-of-type
+				padding-right: $wrapper-padding/2
+			&:last-of-type
+				padding-left: $wrapper-padding/2
