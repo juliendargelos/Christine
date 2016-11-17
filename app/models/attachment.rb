@@ -17,5 +17,5 @@ class Attachment < ActiveRecord::Base
 
     has_attached_file :file, styles: {normal: "100x100#"}
 
-    validates_attachment :file, presence: true, content_type: /\Aimage\//
+    validates_attachment :file, presence: true, content_type:  { content_type: ["image/jpeg", "image/gif", "image/png"] }
 end
