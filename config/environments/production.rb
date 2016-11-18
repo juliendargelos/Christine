@@ -87,5 +87,7 @@ Rails.application.configure do
         }
     }
 
+    config.paperclip_defaults = { s3_host_name: "s3-#{ENV['AWS_REGION']}.amazonaws.com", }
+
     config.consider_all_requests_local = true
 end
