@@ -12,6 +12,7 @@ Rails.application.config.assets.version = '1.0'
 
 module AssetsPrecompiler
 	PATH = __dir__+'/../../app/assets'
+	VENDORS = __dir__+'/../../vendor/assets'
 
 	@@types = {
 		stylesheets: {
@@ -63,7 +64,21 @@ module AssetsPrecompiler
 			end
 		end
 
-		# self.persist
+		puts '------------------------'
+		{stylesheets: [:css, :sass], javascripts: [:js, :coffee]}.each do |type, exts|
+			exts.each do |ext|
+				path = VENDORS + "/#{type}"
+
+				files = (Dir[path+"/*.#{ext}"] + Dir[path+"/**/*.#{ext}"]).map do |file|
+					file = file.gsub /\A.*?\/([^\/]+)\z/, '\1'
+					file = file.gsub /\.[^\.]+\z/, ".#{@@types[type][:to]}"
+					file
+				end
+				Rails.application.config.assets.precompile += files
+			end
+		end
+		puts '------------------------'
+
 		self.print_precompiled unless quiet == :quiet
 	end
 

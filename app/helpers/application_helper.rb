@@ -1,5 +1,7 @@
 module ApplicationHelper
 	@title = nil
+	@stylesheets = []
+	@javascripts = []
 
 	def display_flash *handle, &block
 		handle = [:notice, :success, :error] if handle.length == 0
@@ -107,6 +109,34 @@ module ApplicationHelper
 
 	def current_javascript
 		javascript_include_tag AssetsPrecompiler.javascript_for(controller_name, action_name)
+	end
+
+	def stylesheet file = nil, options = {}
+		@stylesheets = [] unless @stylesheets.is_a? Array
+		if file == nil
+			capture do
+				@stylesheets.each do |stylesheet|
+					concat stylesheet_link_tag stylesheet[:file], stylesheet[:options]
+				end
+			end
+		else
+			@stylesheets << { file: file.to_s, options: options }
+			''
+		end
+	end
+
+	def javascript file = nil, options = {}
+		@javascripts = [] unless @javascripts.is_a? Array
+		if file == nil
+			capture do
+				@javascripts.each do |javascript|
+					concat javascript_include_tag javascript[:file], javascript[:options]
+				end
+			end
+		else
+			@javascripts << { file: file.to_s, options: options }
+			''
+		end
 	end
 
 	def controller_is? *options

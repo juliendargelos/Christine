@@ -1,29 +1,29 @@
+<% stylesheet :flickity %>
+<% javascript :flickity %>
+
 <main>
     <div class="wrapper">
-        <p>
-            <strong><%= t_attr :product, :name %>:</strong>
-            <%= @product.name %>
-        </p>
 
-        <p>
-            <strong><%= t_attr :product, :price %>:</strong>
-            <%= @product.price %>
-        </p>
+        <div class="head">
+            <h1><%= @product.name %></h1>
+            <div class="actions">
+                <% if current_user_is_admin %>
+                    <%= link_to t(:product_edit), edit_product_path(@product), class: :button %>
+                <% end %>
+                <%= link_to content_tag(:span, @product.price.to_s+'€')+svg(:icons, :basket)+t(:basket_add), nil, class: 'button super big-span' %>
+            </div>
+        </div>
 
-        <p>
-            <strong><%= t_attr :product, :description %>:</strong>
-            <%= @product.description %>
-        </p>
 
-        <p>
+        <div class="carousel">
             <% @product.attachments.each do |attachment| %>
-                <%= image_tag attachment.file.url %>
+                <div class="carousel-cell">
+                    <%= image_tag attachment.file.url %>
+                </div>
             <% end %>
-        </p>
+        </div>
 
-        <% if current_user_is_admin %>
-            <%= link_to t(:product_edit), edit_product_path(@product) %> |
-            <%= link_to t(:product_index), products_path %>
-        <% end %>
+        <p class="baseline"><%= @product.baseline %></p>
+        <p class="description"><%= @product.description %></p>
     </div>
 </main>

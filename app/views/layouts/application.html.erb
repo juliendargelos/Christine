@@ -3,6 +3,7 @@
     <head>
         <title><%= title base: :brand_name %></title>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <%= stylesheet %>
         <%= current_stylesheet %>
         <%= csrf_meta_tags %>
     </head>
@@ -12,6 +13,7 @@
 
         <%= yield %>
 
+        <%= javascript %>
         <%= current_javascript %>
     </body>
 </html>

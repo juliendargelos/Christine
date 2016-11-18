@@ -17,6 +17,7 @@ fr:
       product:
         name: Nom
         price: Prix
+        baseline: Baseline
         description: Description
 
     errors:
@@ -29,6 +30,8 @@ fr:
               blank: Veuillez indiquer un prix
               greater_than: Veuillez indiquer un prix supérieur à %{count}
               not_a_number: Veuillez indiquer nombre valide
+            baseline:
+              blank: Veuillez indiquer une baseline
             description:
               blank: Veuillez indiquer une description
   helpers:

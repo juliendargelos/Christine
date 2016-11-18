@@ -1,2 +1,17 @@
 <main>
+	<div class="wrapper">
+		<% @products.each do |product| %>
+			<%= content_tag :a, class: :product, href: product_path(product) do %>
+				<%= content_tag :div, class: :image do %>
+					<%= image_tag product.attachments[0].file.url(:medium), alt: product.name %>
+				<% end %>
+				<%= content_tag :span, class: :price do %>
+					<%= product.price %>€
+				<% end %>
+				<%= content_tag :span, class: :name do %>
+					<%= product.name %>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
 </main>

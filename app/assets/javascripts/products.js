@@ -1,6 +1,15 @@
 //= require ./components/core/main
 
 var products = {
+	carousel: {
+		element: document.querySelector('.carousel'),
+		flickity: null,
+		init: function() {
+			if(this.element) {
+				this.flickity = new Flickity(this.element);
+			}
+		}
+	},
 	form: {
 		element: document.querySelector('#new_product, .edit_product'),
 		attachments: {
@@ -102,6 +111,7 @@ var products = {
 		}
 	},
 	init: function() {
+		this.carousel.init();
 		this.form.init();
 	}
 };
