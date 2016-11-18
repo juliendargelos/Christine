@@ -7,9 +7,15 @@
 		-#{$vendor}-#{$property}: $value
 	#{$property}: $value
 
-=pseudo-prefix($selector)
+=pseudo-prefix($selectors...)
 	@each $vendor in $vendors
-		&::-#{$vendor}-#{$selector}
+		$selector: ''
+		@each $s in $selectors
+			$selector: #{$selector+'&::-'+$vendor+'-'+$s+', '}
+		#{str-slice($selector, 0, -3)}
 			@content
-	&::#{$selector}
+	$selector: ''
+	@each $s in $selectors
+		$selector: #{$selector+'&::-'+$s+', '}
+	#{str-slice($selector, 0, -3)}
 		@content

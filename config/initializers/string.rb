@@ -17,4 +17,9 @@ class String
 		str = str.gsub(/#{options[:delimiter] + options[:delimiter]}+/, options[:delimiter])
 		str = str.gsub(/\A#{options[:delimiter]}/, '').gsub(/#{options[:delimiter]}\z/, '')
     end
+
+    def slash
+        str = self.clone
+        str.gsub(/['"\\\x0]/, '\\\\\0')
+    end
 end

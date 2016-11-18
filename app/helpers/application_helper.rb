@@ -97,11 +97,23 @@ module ApplicationHelper
 		end
 	end
 
+	def t_attr record, attr
+		return t :"activerecord.attributes.#{record}.#{attr}"
+	end
+
 	def current_stylesheet
 		stylesheet_link_tag AssetsPrecompiler.stylesheet_for(controller_name, action_name), media: :all
 	end
 
 	def current_javascript
 		javascript_include_tag AssetsPrecompiler.javascript_for(controller_name, action_name)
+	end
+
+	def controller_is? *options
+		options.map{ |option| option.to_s }.include? controller_name
+	end
+
+	def action_is? *options
+		options.map{ |option| option.to_s }.include? action_name
 	end
 end

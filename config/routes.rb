@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :products
+    resources :products, except: [:destroy]
+    get '/products/:id/destroy' => 'products#destroy', as: :destroy_product
+
     get '/signup' => 'users#new', as: :new_user
     post '/signup' => 'users#create', as: :create_user
     get '/user/edit' => 'users#edit', as: :edit_user

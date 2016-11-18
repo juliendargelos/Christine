@@ -15,7 +15,7 @@
 class Attachment < ActiveRecord::Base
     belongs_to :product
 
-    has_attached_file :file, styles: {normal: "100x100#"}
+    has_attached_file :file, styles: {normal: "500x500", thumb: "200x50"}
 
     validates_attachment :file, presence: true, content_type:  { content_type: ["image/jpeg", "image/gif", "image/png"] }
 end

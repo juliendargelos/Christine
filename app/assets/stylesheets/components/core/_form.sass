@@ -1,8 +1,8 @@
 form
-	input, label
+	input, label, .actions > *
 		box-sizing: border-box
 		display: block
-	input, textarea, select
+	input, textarea, select, .actions > *
 		background: transparent
 		height: 50px
 		margin: 0
@@ -32,6 +32,10 @@ form
 			color: darken($grey, 20)
 		input, textarea
 			padding-right: 15px
+		textarea
+			resize: vertical
+			padding-top: 17px
+			padding-bottom: 17px
 		select
 			background: asset-url('icons/select.svg') no-repeat calc(100% - 6px) center / 16px 16px
 			height: 30px
@@ -43,6 +47,20 @@ form
 			line-height: 20px
 			&:focus
 				border-color: lighten($brand, 20)
+		input[type="file"]
+			cursor: pointer
+			+pseudo-prefix(file-upload-button)
+				width: 0
+				height: 50px
+				padding: 0
+				border: none
+				border-radius: 0
+				visibility: hidden
+				+prefix(appearance, none)
+		input[type="number"]
+			+pseudo-prefix(outer-spin-button, inner-spin-button)
+				margin: 0
+				+prefix(appearance, none)
 		&:last-of-type
 			border-bottom-color: transparent
 		.error
@@ -57,22 +75,36 @@ form
 		&[data-focus]
 			+form-field-background
 			+form-field-border(lighten($brand, 20))
-	label, input[type="submit"]
+	label, .actions > *
 		font-size: 10px
 		font-weight: bold
 		text-transform: uppercase
 		letter-spacing: 2px
-	input[type="submit"]
-		background: $grey
-		width: 100%
-		padding: 0 15px
-		cursor: pointer
-		color: $white
-		transition: 0.2s
-		&:hover
-			background: darken($grey, 10)
-		&:active, &:focus
-			background: $brand
+	.field-destroy
+		display: none
+	.actions
+		display: flex
+		flex-wrap: wrap
+		> *
+			background: $grey
+			width: 100%
+			flex-basis: 0
+			flex-grow: 1
+			padding: 0 15px
+			cursor: pointer
+			color: $white
+			text-align: center
+			text-decoration: none
+			line-height: 50px
+			transition: 0.2s
+			&:hover
+				background: darken($grey, 10)
+			&:active, &:focus
+				background: $brand
+			&.super
+				background: lighten($brand, 10)
+				&:hover, &:active, &:focus
+					background: $brand
 	.row
 		.col
 			width: 50%

@@ -31,4 +31,8 @@ class User < ActiveRecord::Base
 			end_year: max.year
 		}
 	end
+
+	def self.admins
+		self.where(admin: true)
+	end
 end

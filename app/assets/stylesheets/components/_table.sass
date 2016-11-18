@@ -1,0 +1,51 @@
+table
+	width: 100%
+	border-collapse: collapse
+	thead, tbody
+		td, th
+			padding: 15px 20px
+			color: darken($grey, 40)
+		th
+			background: $brand
+			text-align: left
+			font-size: 10px
+			font-weight: bold
+			color: $white
+			text-transform: uppercase
+			letter-spacing: 2px
+			&:first-of-type
+				border-top-left-radius: 30px
+				border-bottom-left-radius: 30px
+			&:last-of-type
+				border-top-right-radius: 30px
+				border-bottom-right-radius: 30px
+		.actions
+			font-size: 0
+			text-align: right
+			a
+				width: 22px
+				height: 22px
+				margin-right: 10px
+				border: 2px solid darken($grey, 20)
+				border-radius: 18px
+				color: transparent
+				display: inline-block
+				vertical-align: top
+				transition: 0.2s
+				svg
+					width: 14px
+					height: 14px
+					margin: 4px
+					display: inline-block
+					g
+						fill: darken($grey, 40)
+						transition: 0.2s
+				&:hover
+					background: $brand
+					border-color: $brand
+					svg
+						g
+							fill: $white
+	tfoot td
+		padding: 15px 0
+		text-align: right

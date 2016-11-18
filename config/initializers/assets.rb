@@ -50,7 +50,9 @@ module AssetsPrecompiler
 		self.controllers_actions do |controller, action, combination|
 			unless except.include? :"#{action}"
 				@@types.each do |type, params|
-					if File.file? params[:path]+"/#{combination}.#{params[:from]}"
+					path = params[:path]+"/#{combination}.#{params[:from]}"
+
+					if File.file?(path) || File.file?(path+'.erb')
 						file = combination
 					else
 						file = controller
@@ -75,7 +77,6 @@ module AssetsPrecompiler
 
 	private
 		def self.file_for type, controller, action
-			# precompiled = @@cache.fetch :precompiled_assets
 			precompiled = @@precompiled
 
 			if precompiled[type].key? controller
@@ -109,10 +110,6 @@ module AssetsPrecompiler
 
 			Rails.application.config.assets.precompile << "#{file}.#{@@types[type][:to]}"
 		end
-
-		# def self.persist
-		# 	@@cache.write :precompiled_assets, @@precompiled
-		# end
 
 		def self.init
 			Rails.application.eager_load!

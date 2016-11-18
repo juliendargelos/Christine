@@ -1,0 +1,38 @@
+fr:
+  product_index: Gérer les produits
+  product_show: Afficher la page du produit
+  product_new: Ajouter un produit
+  product_create_succeed: Le produit a bien été ajouté
+  product_edit: Modifier le produit
+  product_update_succeed: Les modifications ont bien été enregistrées
+  product_destroy: Supprimer le produit
+  product_destroy_succeed: Le produit a bien été supprimé
+
+  activerecord:
+    models:
+      product:
+        one: Produit
+        others: Produits
+    attributes:
+      product:
+        name: Nom
+        price: Prix
+        description: Description
+
+    errors:
+      models:
+        product:
+          attributes:
+            name:
+              blank: Veuillez indiquer un nom
+            price:
+              blank: Veuillez indiquer un prix
+              greater_than: Veuillez indiquer un prix supérieur à %{count}
+              not_a_number: Veuillez indiquer nombre valide
+            description:
+              blank: Veuillez indiquer une description
+  helpers:
+    submit:
+      product:
+        create: Ajouter
+        update: Enregistrer les modifications

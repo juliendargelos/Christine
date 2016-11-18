@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
             redirect_to create_session_path unless current_user
         end
 
+        def authorize_admin
+            authorize
+            redirect_to root_path unless current_user.admin
+        end
+
         def set_user_for_login
             unless current_user
                 @user = User.new
@@ -23,4 +28,13 @@ class ApplicationController < ActionController::Base
             @current_user ||= User.find(session[:user_id]) if session[:user_id]
         end
         helper_method :current_user
+
+        def current_user_is_admin
+            if current_user
+                return current_user.admin
+            else
+                false
+            end
+        end
+        helper_method :current_user_is_admin
 end

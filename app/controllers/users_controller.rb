@@ -26,7 +26,7 @@ class UsersController < ApplicationController
 
     def update
         if @user.update(user_params)
-            flash[:success] = I18n.t(:user_update_informations_succeed)
+            flash[:success] = I18n.t(:user_update_succeed)
             redirect_to edit_user_path
         else
             render :edit
@@ -34,8 +34,17 @@ class UsersController < ApplicationController
     end
 
     def destroy
+        if @user.admin
+            if User.admins.length <= 1
+                flash[:error] = I18n.t(:user_need_at_least_one_admin)
+                redirect_to root_path
+                return
+            end
+        end
+
         @user.destroy
-        redirect_to root_path, notice: I18n.t(:user_unsubscribing_succeed)
+        flash[:notice] = I18n.t(:user_destroy_succeed)
+        redirect_to root_path
     end
 
     private

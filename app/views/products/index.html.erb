@@ -1,31 +1,35 @@
-<p id="notice"><%= notice %></p>
+<main>
+    <div class="wrapper">
+        <h1><%= t :product_index %></h1>
 
-<h1>Listing Products</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th><%= t_attr :product, :name %></th>
+                    <th><%= t_attr :product, :price %></th>
+                    <th></th>
+                </tr>
+            </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <tbody>
+                <% @products.each do |product| %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.price %></td>
+                        <td class="actions">
+                            <%= link_to svg(:icons, :show)+t(:product_show), product, title: t(:product_show) %>
+                            <%= link_to svg(:icons, :edit)+t(:product_edit), edit_product_path(product), title: t(:product_edit) %>
+                            <%= link_to svg(:icons, :destroy)+t(:product_destroy), destroy_product_path(product), title: t(:product_destroy) %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
 
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.price %></td>
-        <td><%= product.description %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><%= link_to t(:product_new), new_product_path, class: :button %></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</main>

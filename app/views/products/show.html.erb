@@ -1,19 +1,29 @@
-<p id="notice"><%= notice %></p>
+<main>
+    <div class="wrapper">
+        <p>
+            <strong><%= t_attr :product, :name %>:</strong>
+            <%= @product.name %>
+        </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
+        <p>
+            <strong><%= t_attr :product, :price %>:</strong>
+            <%= @product.price %>
+        </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+        <p>
+            <strong><%= t_attr :product, :description %>:</strong>
+            <%= @product.description %>
+        </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+        <p>
+            <% @product.attachments.each do |attachment| %>
+                <%= image_tag attachment.file.url %>
+            <% end %>
+        </p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+        <% if current_user_is_admin %>
+            <%= link_to t(:product_edit), edit_product_path(@product) %> |
+            <%= link_to t(:product_index), products_path %>
+        <% end %>
+    </div>
+</main>

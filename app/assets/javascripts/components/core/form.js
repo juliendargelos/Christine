@@ -19,6 +19,9 @@ var form = {
 			field.removeAttribute('data-focus');
 		};
 	},
+	stopPropagation: function(event) {
+		event.stopPropagation();
+	},
 	init: function(element) {
 		if(element instanceof Node) {
 			var fields = element.querySelectorAll('.field');
@@ -33,6 +36,7 @@ var form = {
 						var input = inputs[j];
 						input.on('focus', this.focus(field));
 						input.on('blur', this.blur(field));
+						input.on('click', this.stopPropagation);
 					}
 				}
 			}

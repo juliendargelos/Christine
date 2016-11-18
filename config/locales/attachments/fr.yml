@@ -1,0 +1,15 @@
+fr:
+  attachment_add: Ajouter
+  attachment_remove: Supprimer
+
+  activerecord:
+    attributes:
+      attachment:
+        file: Image
+
+    errors:
+      models:
+        attachment:
+          attributes:
+            file:
+              blank: Veuillez indiquer un fichier

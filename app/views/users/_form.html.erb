@@ -6,14 +6,15 @@
                 <%= f.text_field :email %>
                 <%= f.error_tag :email %>
             </div>
+            <% placeholder = action_is?(:edit, :update) ? t(:skip_to_keep_unchanged) : nil %>
             <div class="field">
                 <%= f.label :password %>
-                <%= f.password_field :password, placeholder: 'Laisser vide pour ne pas changer' %>
+                <%= f.password_field :password, placeholder: placeholder %>
                 <%= f.error_tag :password %>
             </div>
             <div class="field">
                 <%= f.label :password_confirmation %>
-                <%= f.password_field :password_confirmation, placeholder: 'Laisser vide pour ne pas changer' %>
+                <%= f.password_field :password_confirmation, placeholder: placeholder %>
                 <%= f.error_tag :password_confirmation %>
             </div>
         </div>

@@ -1,10 +1,15 @@
 fr:
-  user_signup: Inscription
-  user_update_informations: Modifier vos informations
-  user_update_informations_succeed: Les informations ont bien été modifiées
-  user_unsubscribing_succeed: Vous avez bien été désinscrit
+  user_index: Tous les utilisateurs
+  user_show: Afficher la page de l'utilisateur
+  user_new: Inscription
+  user_create_succed: Inscription
+  user_edit: Mes informations
+  user_update_succeed: Vos informations ont bien été enregistrées
+  user_destroy: Supprimer mon compte
+  user_destroy_succeed: Votre compte a bien été supprimé
 
-  my_informations: Mes informations
+  skip_to_keep_unchanged: Laisser vide pour ne pas changer
+  user_need_at_least_one_admin: La plateforme doit avoir au moins un administrateur
 
   activerecord:
     models:
@@ -27,7 +32,7 @@ fr:
             email:
               blank: Veuillez indiquer votre adresse mail
               email: Adresse mail invalide
-              uniqueness: Cette adresse mail est déjà utilisée
+              taken: Cette adresse mail est déjà utilisée
             password:
               blank: Veuillez indiquer un mot de passe
               too_short:
@@ -44,4 +49,5 @@ fr:
   helpers:
     submit:
       user:
-        update: "Enregistrer vos informations"
+        create: Inscription
+        update: Enregistrer vos informations

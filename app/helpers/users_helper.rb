@@ -3,7 +3,7 @@ module UsersHelper
 		if options[:url] == nil
 			options[:url] = {
 				controller: controller_name,
-				action: [:new, :create].include?(action_name) ? :create : :update
+				action: action_is?(:new, :create) ? :create : :update
 			}
 		end
 
