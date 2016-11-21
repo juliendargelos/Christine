@@ -1,3 +1,7 @@
+<% defer_translation :file, :'activerecord.attributes.attachment.file' %>
+<% defer_translation :add, :attachment_add %>
+<% defer_translation :remove, :attachment_remove %>
+
 <%= form_for_product @product do |f| %>
     <div class="field">
         <%= f.label :name %>
@@ -41,12 +45,4 @@
     <div class="actions">
         <%= f.submit %>
     </div>
-<% end %>
-
-<%= javascript_tag do %>
-    var t = {
-        file: '<%= j t(:'activerecord.attributes.attachment.file') %>',
-        add: '<%= j t(:attachment_add) %>',
-        remove: '<%= j t(:attachment_remove) %>'
-    };
 <% end %>

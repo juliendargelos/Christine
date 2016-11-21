@@ -9,8 +9,18 @@
 	width: map-get($logo-sizes, $size)
 	height: map-get($logo-sizes, $size)
 
+=logo-full-size($size)
+	width: map-get($logo-sizes, $size)*$logo-full-ratio
+	height: map-get($logo-sizes, $size)
+
 =logo($size: normal, $color: $brand)
 	+logo-size($size)
+	+logo-color($color)
+	path
+		@content
+
+=logo-full($size: normal, $color: $brand)
+	+logo-full-size($size)
 	+logo-color($color)
 	path
 		@content

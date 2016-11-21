@@ -1,2 +1,4 @@
 fr:
   basket_add: Ajouter au panier
+  product_added_to_basket: Le produit a été ajouté au panié
+  product_removed_from_basket: Le produit a été retiré du panié

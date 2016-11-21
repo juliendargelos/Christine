@@ -1,6 +1,12 @@
 <% stylesheet :flickity %>
 <% javascript :flickity %>
 
+<% defer_route :add_to_basket, format: :json %>
+<% defer_route :remove_from_basket, format: :json %>
+<% defer_route :show_basket, format: :json %>
+
+<% defer_translation :server_error %>
+
 <main>
     <div class="wrapper">
 

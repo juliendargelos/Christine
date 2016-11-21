@@ -1,1 +1,32 @@
 @import partials/main
+@import components/overlay
+@import components/cover
+
+body
+	padding-top: 0
+	height: 2000px
+
+header
+	background: transparent
+
+main
+	margin-top: 0
+
+.cover
+	.wrapper
+		padding-top: 200px
+		padding-bottom: 200px
+	h1
+		margin: 0 0 15px 0
+		text-align: center
+		color: transparent
+		font-size: 0
+		.logo
+			+logo-full(normal, $white)
+
+	h3
+		@extend h1
+		color: $white
+		font-size: 12px
+		font-weight: normal
+		letter-spacing: 12px

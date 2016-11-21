@@ -4,6 +4,12 @@ main.init('header', [
 
 var header = {
 	element: document.querySelector('header'),
+	get height() {
+		return this.element.offsetHeight;
+	},
+	set background(v) {
+		this.element.style.background = v;
+	},
 	nav: {
 		element: document.querySelector('header nav'),
 		toggleElement: document.querySelector('header .toggle-nav'),

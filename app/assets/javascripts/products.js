@@ -1,4 +1,6 @@
 //= require ./components/core/main
+//= require ./components/Request
+//= require ./components/basket
 
 var products = {
 	carousel: {

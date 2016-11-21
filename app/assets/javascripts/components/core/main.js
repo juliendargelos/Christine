@@ -21,7 +21,9 @@ var main = {
 			}
 		}
 
-		window[component].init();
+		if(typeof window[component] == 'object') {
+			if(typeof window[component].init == 'function') window[component].init();
+		}
 		this.initialized.push(component);
 
 		return true;

@@ -1,0 +1,18 @@
+=cover($number, $delay: 4, $transition: 1, $startAt: 1)
+	@if $number > 0
+		$animation-name: 'cover-#{round(random()*100)}'
+		$duration: $number*$delay
+		$pDelay: $delay/$duration
+		$rDelay: $delay - $transition
+		$prDelay: $rDelay/$duration
+		$pTransition: $transition/$duration
+		@at-root
+			@keyframes #{$animation-name}
+				@for $n from 0 through $number - 1
+					#{($n*$pDelay)*100}%
+						background-image: asset-url('covers/c'+($n+$startAt)+'.jpeg')
+					#{($n*$pDelay+$prDelay)*100}%
+						background-image: asset-url('covers/c'+($n+$startAt)+'.jpeg')
+				100%
+					background-image: asset-url('covers/c'+$startAt+'.jpeg')
+		animation: #{$animation-name} $duration+0s infinite

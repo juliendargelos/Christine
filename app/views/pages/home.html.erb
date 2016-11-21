@@ -1,4 +1,12 @@
 <main>
+	<div class="cover">
+		<div class="overlay">
+			<div class="wrapper">
+				<h1><%= svg 'logo-full' %>Christine</h1>
+				<h3>La tise stylée</h3>
+			</div>
+		</div>
+	</div>
 	<div class="wrapper">
 		<% @products.each do |product| %>
 			<%= content_tag :a, class: :product, href: product_path(product) do %>

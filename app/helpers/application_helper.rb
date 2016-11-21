@@ -2,6 +2,8 @@ module ApplicationHelper
 	@title = nil
 	@stylesheets = []
 	@javascripts = []
+	@defer_routes = ''
+	@defer_translations = ''
 
 	def display_flash *handle, &block
 		handle = [:notice, :success, :error] if handle.length == 0
@@ -135,6 +137,69 @@ module ApplicationHelper
 			end
 		else
 			@javascripts << { file: file.to_s, options: options }
+			''
+		end
+	end
+
+	def defer_route name, route = nil
+		@defer_routes = '' if @defer_routes == nil
+		if route.is_a? Hash
+			if route.has_key? :js_params
+				route[:js_params].each do |param|
+					route[param] = "'+#{param}+'".html_safe
+				end
+
+				if route.has_key?(:controller) && route.has_key?(:action)
+					@defer_routes += "#{name}: function(#{route[:js_params].join ','}) {return '#{url_for route.except(:js_params)}';},".html_safe
+				else
+					r = send("#{name}_path")
+					@defer_routes += "#{name}: function(#{route[:js_params].join ','}) {return '#{r}';},".html_safe
+				end
+			else
+				if route.has_key?(:controller) && route.has_key?(:action)
+					@defer_routes += "#{name}: '#{url_for route}',".html_safe
+				else
+					r = send("#{name}_path", route)
+					@defer_routes += "#{name}: '#{r}',".html_safe
+				end
+			end
+
+			return nil
+		end
+
+		if route == nil
+			route = send("#{name}_path")
+		end
+
+		@defer_routes += "#{name}:'#{url_for route}',".html_safe
+	end
+
+	def defer_translation js_key, key = nil
+		@defer_translations = '' if @defer_translations == nil
+		key = js_key if key == nil
+		@defer_translations += "#{js_key}: '#{t(key, {default: key.to_s.humanize}).gsub('\'', '\\\'')}',"
+	end
+
+	def defer_routes
+		if @defer_routes != nil && @defer_routes != ''
+			content_tag :script, type: 'text/javascript' do
+				concat 'routes = {'
+				concat @defer_routes.gsub(/,\z/, '').html_safe
+				concat '};'
+			end
+		else
+			''
+		end
+	end
+
+	def defer_translations
+		if @defer_translations != nil && @defer_translations != ''
+			content_tag :script, type: 'text/javascript' do
+				concat 't = {'
+				concat @defer_translations.gsub(/,\z/, '').html_safe
+				concat '};'
+			end
+		else
 			''
 		end
 	end

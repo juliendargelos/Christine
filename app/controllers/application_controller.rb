@@ -6,12 +6,29 @@ class ApplicationController < ActionController::Base
 
     private
         def authorize
-            redirect_to create_session_path unless current_user
+            unless current_user
+                respond_to do |format|
+                    format.html { redirect_to create_session_path }
+                    format.json { render json: { status: false, message: I18n.t(:you_must_be_logged_in) } }
+                end
+                false
+            else
+                true
+            end
         end
 
         def authorize_admin
-            authorize
-            redirect_to root_path unless current_user.admin
+            if authorize
+                unless current_user.admin
+                    respond_to do |format|
+                        format.html { redirect_to root_path }
+                        format.json { render json: { status: false, message: I18n.t(:access_denied) } }
+                    end
+                    false
+                else
+                    true
+                end
+            end
         end
 
         def set_user_for_login
@@ -21,7 +38,12 @@ class ApplicationController < ActionController::Base
         end
 
         def unauthorize
-            redirect_to root_path if current_user
+            if current_user
+                respond_to do |format|
+                    format.html { redirect_to root_path }
+                    format.json { render json: { status: false } }
+                end
+            end
         end
 
         def current_user
