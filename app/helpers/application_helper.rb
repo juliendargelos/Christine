@@ -88,6 +88,19 @@ module ApplicationHelper
 		end
 	end
 
+	def body_class *classname
+		if classname.length == 0
+			unless @body_class == nil
+				" class=#{@body_class.join ' '}"
+			else
+				''
+			end
+		else
+			@body_class = [] if @body_class == nil
+			@body_class += classname
+		end
+	end
+
 	def svg *parts
 		parts = [:images] + parts.flatten
 		parts[-1] = "#{parts.last}.svg"
