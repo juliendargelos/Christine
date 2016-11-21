@@ -30,6 +30,9 @@ form
 			flex-grow: 10
 			font-size: 13px
 			color: darken($grey, 20)
+			+autofill
+				+autofill-color(darken($grey, 20))
+				+autofill-background($white)
 		input, textarea
 			padding-right: 15px
 		textarea

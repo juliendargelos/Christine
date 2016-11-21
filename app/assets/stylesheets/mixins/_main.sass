@@ -19,3 +19,13 @@
 		$selector: #{$selector+'&::-'+$s+', '}
 	#{str-slice($selector, 0, -3)}
 		@content
+
+=autofill
+	&:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus &:-webkit-autofill
+		@content
+
+=autofill-color($color)
+	-webkit-text-fill-color: $color !important
+
+=autofill-background($color)
+	box-shadow: 0 0 0px 1000px $color inset
