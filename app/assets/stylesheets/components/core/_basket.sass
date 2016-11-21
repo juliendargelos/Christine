@@ -1,0 +1,52 @@
+#basket
+	padding: 0 20px
+	max-height: 400px
+	overflow: scroll
+	li
+		border-bottom: 1px solid lighten($grey, 10)
+		&:last-of-type
+			border-bottom: none
+		a
+			padding: 15px 0
+			color: darken($grey, 40)
+			display: flex
+			align-items: center
+			.image
+				background: red
+				width: 40px
+				height: 40px
+				margin-right: 10px
+				flex-shrink: 0
+				overflow: hidden
+				img
+					width: 100%
+					margin-top: 50%
+					margin-left: 50%
+					display: block
+					transform: translateX(-50%) translateY(-50%)
+			.quantity, .price
+				font-size: 12px
+			.quantity
+				margin-left: 3px
+				flex-basis: 100%
+				&::before
+					content: '×'
+					top: -1px
+					margin-right: 2px
+					position: relative
+					display: inline-block
+			.price
+				background: $brand
+				padding: 4px 6px
+				border-radius: 30px
+				color: $white
+			.remove
+				margin-left: 10px
+				flex-shrink: 0
+				font-size: 0
+				color: transparent
+				svg
+					width: 18px
+					height: 18px
+					g
+						fill: darken($grey, 40)

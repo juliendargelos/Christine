@@ -16,7 +16,7 @@
                 <% if current_user_is_admin %>
                     <%= link_to t(:product_edit), edit_product_path(@product), class: :button %>
                 <% end %>
-                <%= link_to content_tag(:span, @product.price.to_s+'€')+svg(:icons, :basket)+t(:basket_add), nil, class: 'button super big-span' %>
+                <%= link_to content_tag(:span, @product.price.to_s+'€')+svg(:icons, :basket)+t(:basket_add), nil, class: 'button brand big-span' %>
             </div>
         </div>
 

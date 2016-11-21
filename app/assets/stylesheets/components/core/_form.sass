@@ -87,12 +87,11 @@ form
 		display: none
 	.actions
 		display: flex
-		flex-wrap: wrap
+		flex-wrap: wrap-reverse
 		> *
 			background: $grey
-			width: 100%
-			flex-basis: 0
 			flex-grow: 1
+			flex-shrink: 10
 			padding: 0 15px
 			cursor: pointer
 			color: $white
@@ -100,14 +99,19 @@ form
 			text-decoration: none
 			line-height: 50px
 			transition: 0.2s
+			display: inline-block
 			&:hover
 				background: darken($grey, 10)
 			&:active, &:focus
 				background: $brand
-			&.super
+			&.brand
 				background: lighten($brand, 10)
 				&:hover, &:active, &:focus
 					background: $brand
+			&.red
+				background: lighten($red, 10)
+				&:hover, &:active, &:focus
+					background: $red
 	.row
 		.col
 			width: 50%

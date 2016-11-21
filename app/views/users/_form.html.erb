@@ -39,6 +39,9 @@
         </div>
     </div>
     <div class="actions">
-        <%= f.submit %>
+        <% if action_is? :edit, :update %>
+            <%= link_to t(:user_destroy), destroy_user_path, class: :red %>
+        <% end %>
+        <%= f.submit class: :brand %>
     </div>
 <% end %>

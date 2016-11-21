@@ -13,10 +13,14 @@
 	transition: 0.2s
 	&:hover
 		background: $brand
-	&.super
+	&.brand
 		background: $brand
 		&:hover
 			background: darken($brand, 10)
+	&.red
+		background: lighten($red, 10)
+		&:hover
+			background: $red
 	svg
 		width: 18px
 		height: 18px
@@ -45,11 +49,11 @@
 			display: inline-block
 			vertical-align: top
 			transition: 0.2s
-	&:hover span::after, &.super span::after
+	&:hover span::after, &.brand span::after
 		background: $brand
-	&.super:hover span::after
+	&.brand:hover span::after
 		background: darken($brand, 10)
-	&.super.big-span
+	&.brand.big-span
 		span
 			font-size: 18px
 			font-weight: lighter

@@ -10,7 +10,30 @@
 				<% end %>
 				<%= nav_item :user_edit, edit_user_path, icon: :informations, class: 'editUser', selected: {controller: :users, actions: [:edit, :update]} %>
 				<%= nav_item :basket, nil, icon: :basket, class: 'basket' do %>
-
+					<ul id="basket">
+						<li>
+							<a>
+								<div class="image">
+									<img src=""/>
+								</div>
+								<span class="name">Name</span>
+								<span class="quantity">2</span>
+								<span class="price">10€</span>
+								<span class="remove"><%= svg(:icons, :destroy)+t(:basket_remove) %></span>
+							</a>
+						</li>
+						<li>
+							<a>
+								<div class="image">
+									<img src=""/>
+								</div>
+								<span class="name">Name</span>
+								<span class="quantity">2</span>
+								<span class="price">10€</span>
+								<span class="remove"><%= svg(:icons, :destroy)+t(:basket_remove) %></span>
+							</a>
+						</li>
+					</ul>
 				<% end %>
 				<%= nav_item :logout, destroy_session_path, icon: :logout, class: 'destroySession' %>
 			<% else %>
