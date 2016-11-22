@@ -59,9 +59,6 @@ class BasketController < ApplicationController
 	def order
 		unless current_user.basket.empty?
 			begin
-				puts '-------------------'
-				puts @token_id
-				puts '-------------------'
 				charge = Stripe::Charge.create(
 					amount: current_user.basket.total_price,
 					currency: @currency[:identifier],

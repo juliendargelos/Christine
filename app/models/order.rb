@@ -20,6 +20,7 @@ class Order < ActiveRecord::Base
         options = json_options :purchases, options
         json = base_as_json options[:base]
         json[:total_price] = total_price
+        json[:description] = description
         json[:plain_total_price] = plain_total_price
         json[:purchases] = purchases.map { |purchase| purchase.as_json options[:extended][:purchases] }
 
@@ -31,6 +32,33 @@ class Order < ActiveRecord::Base
         purchases.each { |purchase| total_price += purchase.total_price }
 
         total_price
+    end
+
+    def description
+        text = ''
+        lines = []
+        lineLength = -1
+        priceLength = -1
+        purchases.each do |purchase|
+            line = purchase.product.name+' × '+purchase.quantity.to_s
+            lineLength = line.length if line.length > lineLength
+            priceLength = purchase.plain_total_price.length if purchase.plain_total_price.length > priceLength
+            lines << line
+        end
+
+        n = 0
+        lines.each do |line|
+            price = purchases[n].plain_total_price
+            n += 1
+
+            dots = ''
+            (lineLength - line.length + 8).times { dots += '.'}
+            (priceLength - price.length + 8).times { dots += '.'}
+
+            text += line + ' '+dots+' ' + price + "\n"
+        end
+
+        text.gsub(/\n\z/, '')
     end
 
     def plain_total_price

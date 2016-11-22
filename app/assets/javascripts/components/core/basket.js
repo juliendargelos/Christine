@@ -6,6 +6,8 @@ main.init('basket', [
 var basket = {
 	element: document.querySelector('#basket'),
 	callback: null,
+	amount: null,
+	description: null,
 	requests: {
 		add: null,
 		remove: null,
@@ -20,10 +22,8 @@ var basket = {
 
 			return function() {
 				self.handler.open({
-					name: charge.name,
-				    description: charge.description,
-				    currency: charge.currency,
-				    amount: charge.amount
+				    currency: stripe.currency,
+				    amount: basket.amount
 				});
 			};
 		},
@@ -38,7 +38,6 @@ var basket = {
 			var self = basket.order;
 			self.request.url = routes.basket_order;
 			self.request.send({token_id: token.id});
-			console.log(self.request.data);
 		},
 		init: function(button) {
 			if(button !== undefined) button.on('click', this.onclick);
@@ -49,6 +48,9 @@ var basket = {
 					key: stripe.publishable_key,
 					email: stripe.email,
 					locale: 'auto',
+					name: 'Christine',
+					description: basket.description,
+					shippingAddress: true,
 					token: this.token
 				});
 
@@ -165,7 +167,11 @@ var basket = {
 	},
 	update: function(basket) {
 		if(basket === undefined) this.requests.show.send();
-		else this.fill(basket);
+		else {
+			this.fill(basket);
+			this.amount = basket.total_price;
+			this.description = basket.description;
+		}
 	},
 	clear: function() {
 		this.requests.clear.send();
