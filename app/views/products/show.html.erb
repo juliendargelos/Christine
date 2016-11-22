@@ -10,10 +10,14 @@
                 <% if current_user_is_admin %>
                     <%= link_to t(:product_edit), edit_product_path(@product), class: :button %>
                 <% end %>
-                <span class="button brand big-span add" data-id=<%= @product.id %>>
-                    <%= content_tag(:span, @product.price.to_s+'€') %>
-                    <%= svg(:icons, :basket)+t(:basket_add) %>
-                </span>
+                <% if current_user %>
+                    <span class="button brand big-span add" data-id=<%= @product.id %>>
+                        <%= content_tag(:span, @product.price.to_s+'€') %>
+                        <%= svg(:icons, :basket)+t(:basket_add) %>
+                    </span>
+                <% else %>
+                    <span class="info require-logged-in">Connectez-vous pour commander</span>
+                <% end %>
             </div>
         </div>
 

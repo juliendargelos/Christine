@@ -24,6 +24,30 @@ var products = {
 			}
 		}
 	},
+	requireLoggedIn: {
+		element: document.querySelector('.require-logged-in'),
+		item: null,
+		navElement: null,
+		open: function() {
+			this.item.setAttribute('data-open', '');
+			this.navElement.setAttribute('data-open', '');
+		},
+		onclick: function() {
+			this.open();
+		},
+		init: function() {
+			if(this.element) {
+				var self = this;
+
+				this.item = header.nav.items.newSession;
+				this.navElement = header.nav.element;
+
+				this.element.on('click', function() {
+					self.open();
+				});
+			}
+		}
+	},
 	form: {
 		element: document.querySelector('#new_product, .edit_product'),
 		attachments: {
@@ -127,10 +151,12 @@ var products = {
 	init: function() {
 		this.carousel.init();
 		this.add.init();
+		this.requireLoggedIn.init();
 		this.form.init();
 	}
 };
 
 main.exec('products', [
-	'eventsManager'
+	'eventsManager',
+	'header'
 ]);
