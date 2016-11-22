@@ -9,19 +9,19 @@
 			</div>
 		</div>
 	</div>
-	<div class="wrapper">
+	<div class="products wrapper">
 		<% @products.each do |product| %>
-			<%= content_tag :a, class: :product, href: product_path(product) do %>
-				<%= content_tag :div, class: :image do %>
-					<%= image_tag product.attachments[0].file.url(:medium), alt: product.name %>
+			<div class="product">
+				<%= content_tag :a, href: product_path(product) do %>
+					<div class="image">
+						<%= image_tag product.attachments[0].file.url(:medium), alt: product.name %>
+					</div>
+					<div class="infos">
+						<span class="name"><%= product.name %></span>
+						<span class="price"><%= product.price %>€</span>
+					</div>
 				<% end %>
-				<%= content_tag :span, class: :price do %>
-					<%= product.price %>€
-				<% end %>
-				<%= content_tag :span, class: :name do %>
-					<%= product.name %>
-				<% end %>
-			<% end %>
+			</div>
 		<% end %>
 	</div>
 </main>
