@@ -16,6 +16,12 @@
 
         <%= yield %>
 
+        <% if current_user %>
+            <% javascript 'https://checkout.stripe.com/checkout.js' %>
+            <%= render 'stripe' %>
+            <%= render 'charge' %>
+        <% end %>
+
         <%= javascript %>
         <%= defer_translations %>
         <%= defer_routes %>

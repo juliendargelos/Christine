@@ -1,7 +1,8 @@
 class BasketController < ApplicationController
 	before_action :authorize
-	skip_before_action :verify_authenticity_token, only: [:add, :remove]
+	skip_before_action :verify_authenticity_token, only: [:add, :remove, :order]
 	before_action :set_product, only: [:add, :remove]
+	before_action :set_token_id, only: :order
 
 	def show
 		render json: { status: true, basket: current_user.basket.as_json(json_options) }
@@ -55,13 +56,54 @@ class BasketController < ApplicationController
 		}
 	end
 
+	def order
+		unless current_user.basket.empty?
+			begin
+				puts '-------------------'
+				puts @token_id
+				puts '-------------------'
+				charge = Stripe::Charge.create(
+					amount: current_user.basket.total_price,
+					currency: @currency[:identifier],
+					source: @token_id
+				)
+
+				current_user.basket.token_id = @token_id
+				current_user.basket.done = true
+				current_user.basket.save
+				render json: {
+					status: true,
+					message: I18n.t(:order_succeed)
+				}
+			rescue Stripe::CardError => e
+				render json: {
+					status: false,
+					message: I18n.t(:payment_declined)
+				}
+			end
+		else
+			render json: {
+				status: false,
+				message: I18n.t(:basket_is_empty)
+			}
+		end
+	end
+
 	private
 		def basket_params
 			params.permit(:product_id)
 		end
 
+		def order_params
+			params.permit(:token_id);
+		end
+
 		def set_product
 			@product = Product.find_by(id: basket_params[:product_id])
+		end
+
+		def set_token_id
+			@token_id = order_params[:token_id]
 		end
 
 		def json_options
@@ -70,7 +112,7 @@ class BasketController < ApplicationController
 				purchases: {
 					only: :quantity,
 					product: {
-						only: [:id, :name, :price],
+						only: [:id, :name, :plain_price],
 						attachments: {
 							only: :file,
 							file: {

@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
-  before_action :set_user_for_login
+    # Prevent CSRF attacks by raising an exception.
+    # For APIs, you may want to use :null_session instead.
+    protect_from_forgery with: :exception
+    before_action :set_currency
+    before_action :set_user_for_login
+    before_action :set_stripe_publishable_key
+    before_action :set_order_amount
 
     private
         def authorize
@@ -67,4 +70,19 @@ class ApplicationController < ActionController::Base
             end
         end
         helper_method :current_user_is_admin
+
+        def set_currency
+            @currency = Product.currency
+        end
+
+        def set_stripe_publishable_key
+            @stripe_publishable_key = Rails.configuration.stripe[:publishable_key] if current_user
+        end
+
+        def set_order_amount
+            if current_user
+    			@order_amount = current_user.basket.total_price
+    			@plain_order_amount = current_user.basket.plain_total_price
+            end
+		end
 end

@@ -12,7 +12,7 @@
                 <% end %>
                 <% if current_user %>
                     <span class="button brand big-span add" data-id=<%= @product.id %>>
-                        <%= content_tag(:span, @product.price.to_s+'€') %>
+                        <%= content_tag(:span, @product.plain_price.to_s) %>
                         <%= svg(:icons, :basket)+t(:basket_add) %>
                     </span>
                 <% else %>

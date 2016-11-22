@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     post '/basket/add' => 'basket#add', as: :add_to_basket
     post '/basket/remove' => 'basket#remove', as: :remove_from_basket
     get '/basket/clear' => 'basket#clear', as: :clear_basket
+    post '/basket/order' => 'basket#order', as: :basket_order
 
     root to: 'pages#home'
     # The priority is based upon order of creation: first created -> highest priority.

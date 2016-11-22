@@ -1,5 +1,6 @@
 main.init('basket', [
-	'Request'
+	'Request',
+	'eventsManager'
 ]);
 
 var basket = {
@@ -10,6 +11,55 @@ var basket = {
 		remove: null,
 		show: null,
 		clear: null
+	},
+	order: {
+		handler: null,
+		request: null,
+		get onclick() {
+			var self = this;
+
+			return function() {
+				self.handler.open({
+					name: charge.name,
+				    description: charge.description,
+				    currency: charge.currency,
+				    amount: charge.amount
+				});
+			};
+		},
+		success: function(response) {
+			flash.set(response.message, response.status ? 'success' : 'error');
+			if(response.status) basket.update();
+		},
+		error: function() {
+			flash.set(t.server_error, 'error');
+		},
+		token: function(token) {
+			var self = basket.order;
+			self.request.url = routes.basket_order;
+			self.request.send({token_id: token.id});
+			console.log(self.request.data);
+		},
+		init: function(button) {
+			if(button !== undefined) button.on('click', this.onclick);
+			else {
+				var self = this;
+
+				this.handler = StripeCheckout.configure({
+					key: stripe.publishable_key,
+					email: stripe.email,
+					locale: 'auto',
+					token: this.token
+				});
+
+				on('popstate', function() {
+					self.handler.close();
+				});
+
+				this.request = new Request(null, null, 'post', true);
+				this.request.success(this.success).error(this.error);
+			}
+		}
 	},
 	construct: {
 		basket: function(basket) {
@@ -45,7 +95,7 @@ var basket = {
 
 			var price = document.createElement('span');
 			price.className = 'price';
-			price.appendChild(document.createTextNode(purchase.total_price+'€'));
+			price.appendChild(document.createTextNode(purchase.plain_total_price));
 
 			var remove = document.createElement('span');
 			remove.className = 'remove';
@@ -94,13 +144,15 @@ var basket = {
 
 			clear.appendChild(document.createTextNode(t.clear_basket));
 
-			total.appendChild(document.createTextNode(basket.total_price+'€'));
+			total.appendChild(document.createTextNode(basket.plain_total_price));
 
 			order.appendChild(total);
 			order.appendChild(document.createTextNode(t.order));
 
 			li.appendChild(clear);
 			li.appendChild(order);
+
+			window.basket.order.init(order);
 
 			return li;
 		}
@@ -133,6 +185,8 @@ var basket = {
 	init: function() {
 		if(this.element) {
 			var self = this;
+
+			this.order.init();
 
 			this.requests.add = new Request(routes.add_to_basket, null, 'post', true);
 			this.requests.add.success(function(response) {

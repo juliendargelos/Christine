@@ -1,2 +1,6 @@
 fr:
   order: Commander
+  order_succeed: La commande a été enregistrée
+  invalid_token: Jeton de payement invalide
+  unable_to_save_order: Impossible d'enregistrer la commande
+  payment_declined: Paiement refusé
