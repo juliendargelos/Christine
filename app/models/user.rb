@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 	def basket
 		if @basket == nil
 			@basket = Order.find_by(user_id: id, done: false)
-			@basket = Order.new(user_id: id) unless @basket
+			@basket = Order.new(user: self) unless @basket
 		end
 
 		@basket
