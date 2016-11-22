@@ -1,0 +1,7 @@
+<% if current_user %>
+	<% defer_route :add_to_basket %>
+	<% defer_route :remove_from_basket %>
+	<% defer_route :clear_basket %>
+	<% defer_route :basket %>
+	<% defer_route :product, js_params: :id %>
+<% end %>

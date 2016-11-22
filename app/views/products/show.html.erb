@@ -1,12 +1,6 @@
 <% stylesheet :flickity %>
 <% javascript :flickity %>
 
-<% defer_route :add_to_basket, format: :json %>
-<% defer_route :remove_from_basket, format: :json %>
-<% defer_route :show_basket, format: :json %>
-
-<% defer_translation :server_error %>
-
 <main>
     <div class="wrapper">
 
@@ -16,7 +10,10 @@
                 <% if current_user_is_admin %>
                     <%= link_to t(:product_edit), edit_product_path(@product), class: :button %>
                 <% end %>
-                <%= link_to content_tag(:span, @product.price.to_s+'€')+svg(:icons, :basket)+t(:basket_add), nil, class: 'button brand big-span' %>
+                <span class="button brand big-span add" data-id=<%= @product.id %>>
+                    <%= content_tag(:span, @product.price.to_s+'€') %>
+                    <%= svg(:icons, :basket)+t(:basket_add) %>
+                </span>
             </div>
         </div>
 

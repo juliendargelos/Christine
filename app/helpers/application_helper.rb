@@ -158,15 +158,19 @@ module ApplicationHelper
 		@defer_routes = '' if @defer_routes == nil
 		if route.is_a? Hash
 			if route.has_key? :js_params
+				route[:js_params] = [route[:js_params]] unless route[:js_params].is_a? Array
 				route[:js_params].each do |param|
 					route[param] = "'+#{param}+'".html_safe
 				end
 
 				if route.has_key?(:controller) && route.has_key?(:action)
-					@defer_routes += "#{name}: function(#{route[:js_params].join ','}) {return '#{url_for route.except(:js_params)}';},".html_safe
+					r = '\''+url_for(route.except(:js_params))+'\''
+					r = r.gsub /\+''\z/, ''
+					@defer_routes += "#{name}: function(#{route[:js_params].join ','}) {return #{r};},".html_safe
 				else
-					r = send("#{name}_path")
-					@defer_routes += "#{name}: function(#{route[:js_params].join ','}) {return '#{r}';},".html_safe
+					r = '\''+send("#{name}_path", route.except(:js_params))+'\''
+					r = r.gsub /\+''\z/, ''
+					@defer_routes += "#{name}: function(#{route[:js_params].join ','}) {return #{r};},".html_safe
 				end
 			else
 				if route.has_key?(:controller) && route.has_key?(:action)

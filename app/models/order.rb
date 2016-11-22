@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
     def as_json options = {}
         options = json_options :purchases, options
         json = base_as_json options[:base]
+        json[:total_price] = total_price
         json[:purchases] = purchases.map { |purchase| purchase.as_json options[:extended][:purchases] }
 
         json
@@ -32,7 +33,7 @@ class Order < ActiveRecord::Base
 
     def add product
         if product.is_a? Product
-            unless has? product { |purchase| purchase.quantity += 1 }
+            unless has?(product) { |purchase| purchase.quantity += 1 }
                 purchases << Purchase.new(product: product)
             end
 
@@ -44,9 +45,9 @@ class Order < ActiveRecord::Base
 
     def remove product
         if product.is_a? Product
-            has? product do |purchase|
+            has?(product) do |purchase|
                 purchase.quantity -= 1
-                purchases -= purchase if purchase.quantity <= 0
+                self.purchases.delete(purchase) if purchase.quantity <= 0
             end
         else
             false

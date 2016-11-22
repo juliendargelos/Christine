@@ -3,10 +3,49 @@ main.init('flash', [
 ]);
 
 var flash = {
-	element: document.querySelector('.flash'),
+	get element() {
+		return document.querySelector('.flash');
+	},
 	transition: 200,
 	duration: 4000,
 	interval: null,
+	construct: function(message, type) {
+		var div = document.createElement('div');
+		div.className = 'flash '+type;
+
+		var p = document.createElement('p');
+		p.className = 'wrapper';
+
+		p.appendChild(document.createTextNode(message));
+
+		div.appendChild(p);
+
+		return div;
+	},
+	append: function(element) {
+		var firstChild = document.body.firstChild;
+		if(firstChild) document.body.insertBefore(element, firstChild);
+		else document.body.appendChild(element);
+		this.init();
+	},
+	set: function(message, type) {
+		if(type === undefined) type = 'notice';
+
+		var element = this.construct(message, type);
+		if(this.element) {
+			var self = this;
+			clearInterval(this.interval);
+			this.hide();
+			setTimeout(function() {
+				self.append(element);
+			}, this.transition+1);
+		}
+		else this.append(element);
+
+	},
+	remove: function() {
+		if(this.element) this.element.parentNode.removeChild(this.element);
+	},
 	get height() {
 		return this.element.offsetHeight;
 	},
@@ -35,7 +74,7 @@ var flash = {
 		this.top = -this.height;
 
 		setTimeout(function() {
-			self.visible = false;
+			self.remove();
 		}, this.transition);
 	},
 	init: function() {

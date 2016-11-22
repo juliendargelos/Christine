@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:add_to_basket, :remove_from_basket]
-
     before_action :authorize, only: [:edit, :update, :destroy, :add_to_basket]
     before_action :unauthorize, only: [:new, :create]
 

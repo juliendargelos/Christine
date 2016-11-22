@@ -8,7 +8,7 @@ fr:
   product_destroy: Supprimer le produit
   product_destroy_succeed: Le produit a bien été supprimé
 
-  product_doesnt_exist: Le produit n\'existe pas
+  product_doesnt_exist: Le produit n'existe pas
 
   activerecord:
     models:

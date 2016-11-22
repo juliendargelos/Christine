@@ -77,6 +77,8 @@ header
 				display: none
 				order: 1000
 				transform: translateX(-100%)
+				@at-root .header-transparent &
+					margin-top: $header-height
 				form
 					.wrapper
 						padding: 0
@@ -135,31 +137,39 @@ header
 			left: 100%
 			z-index: -1
 			position: fixed
+			display: block
 			transition: 0.3s
-			a
+			> a
 				margin: 0
 				padding: 0 $wrapper-padding
 				display: block
-				color: $grey
+				color: darken($grey, 15)
 				&::before
 					display: none
 				svg g
 					fill: $grey
 				&:hover, &:active, &[data-open], &.selected
 					background: lighten($grey, 12)
-					color: darken($grey, 15)
+					color: darken($grey, 30)
 					svg g
 						fill: darken($grey, 15)
 				&:active
 					&, svg g
 						transition: 0
+				+ div
+					margin: 0
+					order: initial
+					border-left: none
+					border-right: none
+					border-radius: 0
+					position: relative
+					transform: none
+					@at-root .header-transparent &
+						margin: 0
 			&[data-open]
 				left: 0
 		.toggle-nav
 			display: block
-
-.header-transparent header nav > a + div
-	margin-top: $header-height
 
 @keyframes toggle-nav-in-before
 	0%

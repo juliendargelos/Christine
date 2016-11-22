@@ -12,9 +12,10 @@ Rails.application.routes.draw do
     post '/login' => 'sessions#create', as: :create_session
     get '/logout' => 'sessions#destroy', as: :destroy_session
 
-    get '/basket' => 'basket#show', as: :show_basket
+    get '/basket' => 'basket#show', as: :basket
     post '/basket/add' => 'basket#add', as: :add_to_basket
     post '/basket/remove' => 'basket#remove', as: :remove_from_basket
+    get '/basket/clear' => 'basket#clear', as: :clear_basket
 
     root to: 'pages#home'
     # The priority is based upon order of creation: first created -> highest priority.

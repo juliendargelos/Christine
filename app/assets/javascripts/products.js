@@ -1,6 +1,4 @@
 //= require ./components/core/main
-//= require ./components/Request
-//= require ./components/basket
 
 var products = {
 	carousel: {
@@ -9,6 +7,20 @@ var products = {
 		init: function() {
 			if(this.element) {
 				this.flickity = new Flickity(this.element);
+			}
+		}
+	},
+	add: {
+		element: document.querySelector('main .actions .add'),
+		get id() {
+			return this.element.getAttribute('data-id');
+		},
+		init: function() {
+			if(this.element) {
+				var self = this;
+				this.element.on('click', function() {
+					basket.add(self.id)
+				});
 			}
 		}
 	},
@@ -114,6 +126,7 @@ var products = {
 	},
 	init: function() {
 		this.carousel.init();
+		this.add.init();
 		this.form.init();
 	}
 };

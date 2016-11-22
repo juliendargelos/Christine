@@ -14,6 +14,7 @@ class Purchase < ActiveRecord::Base
     def as_json options = {}
         options = json_options :product, options
         json = base_as_json options[:base]
+        json[:total_price] = total_price
         json[:product] = product.as_json options[:extended][:product]
 
         json
