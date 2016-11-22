@@ -1,9 +1,20 @@
+# == Schema Information
+#
+# Table name: purchases
+#
+#  id         :integer          not null, primary key
+#  product_id :integer
+#  order_id   :integer
+#  quantity   :integer          default(1)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Purchase < ActiveRecord::Base
     include HasExtendedJson
 
     after_initialize :set_quantity
 
-    has_one :user, through: :order
     belongs_to :product
     belongs_to :order
 
