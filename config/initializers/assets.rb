@@ -147,4 +147,4 @@ module AssetsPrecompiler
 		end
 end
 
-AssetsPrecompiler.precompile
+AssetsPrecompiler.precompile :quiet
