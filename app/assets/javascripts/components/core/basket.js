@@ -4,9 +4,6 @@ main.init('basket', [
 
 var basket = {
 	element: document.querySelector('#basket'),
-	get item() {
-		return this.element.parentNode.previousSibling;
-	},
 	callback: null,
 	requests: {
 		add: null,
@@ -125,12 +122,6 @@ var basket = {
 		elements = this.construct.basket(basket);
 		this.element.innerHTML = '';
 		for(var i = 0; i < elements.length; i++) this.element.appendChild(elements[i]);
-	},
-	open: function() {
-		this.item.setAttribute('data-open', '');
-	},
-	close: function() {
-		this.item.removeAttribute('data-open');
 	},
 	success: function(response) {
 		if(response.status) this.update(response.basket)
