@@ -23,7 +23,11 @@ class User < ActiveRecord::Base
 	validates :birthdate, presence: true, birthdate: { minimum_age: 18, maximum_age: 120 }
 
 	def basket
-		@basket = Order.find_by(user_id: id, done: false) || Order.new(user_id: id) if @basket == nil
+		if @basket == nil
+			@basket = Order.find_by(user_id: id, done: false)
+			@basket = Order.new(user_id: id) unless @basket
+		end
+
 		@basket
 	end
 
