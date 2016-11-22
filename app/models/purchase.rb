@@ -15,10 +15,10 @@ class Purchase < ActiveRecord::Base
 
     after_initialize :set_quantity
 
+    has_one :user, through: :order
     belongs_to :product
     belongs_to :order
 
-    validates :user, presence: true
     validates :product, presence: true
     validates :quantity, numericality: { only_integer: true, greater_than: 0 }
 
