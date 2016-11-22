@@ -24,11 +24,22 @@ class Product < ActiveRecord::Base
 	validates :baseline, presence: true
 	validates :description, presence: true
 
+	def plain_price
+		(price/100).to_s+Product.currency[:symbol]
+	end
+
 	def as_json options = {}
 		options = json_options :attachments, options
 		json = base_as_json options[:base]
 		json[:attachments] = attachments.map { |attachment| attachment.as_json options[:extended][:attachments] }
 
 		json
+	end
+
+	def self.currency
+		{
+			identifier: 'eur',
+			symbol: '€'
+		}
 	end
 end

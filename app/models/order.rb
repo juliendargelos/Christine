@@ -7,6 +7,7 @@
 #  done       :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  token      :string
 #
 
 class Order < ActiveRecord::Base
@@ -19,6 +20,7 @@ class Order < ActiveRecord::Base
         options = json_options :purchases, options
         json = base_as_json options[:base]
         json[:total_price] = total_price
+        json[:plain_total_price] = plain_total_price
         json[:purchases] = purchases.map { |purchase| purchase.as_json options[:extended][:purchases] }
 
         json
@@ -29,6 +31,14 @@ class Order < ActiveRecord::Base
         purchases.each { |purchase| total_price += purchase.total_price }
 
         total_price
+    end
+
+    def plain_total_price
+        (total_price/100).to_s+Product.currency[:symbol]
+    end
+
+    def empty?
+        purchases.length == 0
     end
 
     def has? product, &block

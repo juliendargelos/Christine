@@ -25,7 +25,7 @@ class Purchase < ActiveRecord::Base
     def as_json options = {}
         options = json_options :product, options
         json = base_as_json options[:base]
-        json[:total_price] = total_price
+        json[:plain_total_price] = plain_total_price
         json[:product] = product.as_json options[:extended][:product]
 
         json
@@ -33,6 +33,10 @@ class Purchase < ActiveRecord::Base
 
     def total_price
         product.price*quantity
+    end
+
+    def plain_total_price
+        (total_price/100).to_s+Product.currency[:symbol]
     end
 
     private
