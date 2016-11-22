@@ -9,12 +9,19 @@ class BasketController < ApplicationController
 
 	def add
 		if current_user.basket.add @product
-			current_user.basket.save
-			render json: {
-				status: true,
-				message: I18n.t(:product_added_to_basket),
-				basket: current_user.basket.as_json(json_options)
-			}
+			if current_user.basket.save
+				render json: {
+					status: true,
+					message: I18n.t(:product_added_to_basket),
+					basket: current_user.basket.as_json(json_options)
+				}
+			else
+				render json: {
+					status: false,
+					message: I18n.t(:unable_to_save_basket),
+					errors: current_user.basket.errors
+				}
+			end
 		else
 			render json: {
 				status: false,
