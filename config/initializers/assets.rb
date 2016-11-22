@@ -64,7 +64,6 @@ module AssetsPrecompiler
 			end
 		end
 
-		puts '------------------------'
 		{stylesheets: [:css, :sass], javascripts: [:js, :coffee]}.each do |type, exts|
 			exts.each do |ext|
 				path = VENDORS + "/#{type}"
@@ -77,7 +76,6 @@ module AssetsPrecompiler
 				Rails.application.config.assets.precompile += files
 			end
 		end
-		puts '------------------------'
 
 		self.print_precompiled unless quiet == :quiet
 	end
